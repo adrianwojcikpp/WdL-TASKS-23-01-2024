@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# TODO: Change 'username' !!!
+username="aw"
+
+# File paths
+counter_file="/home/$username/Documents/counter.dat"
+log_file="/home/$username/Documents/counter.log"
+
+# Check if counter.dat exists, if not create it with initial value 0
+if [ ! -e "$counter_file" ]; then
+    echo "0" > "$counter_file"
+fi
+
+# Read the current value from counter.dat
+counter=$(cat "$counter_file")
+
+# Increment the counter
+((counter++))
+
+# Save the updated counter back to counter.dat
+echo "$counter" > "$counter_file"
+
+# Get the current date and time
+timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+
+# Append a new line to counter.log with date, time, and counter value
+echo "$timestamp> $counter" >> "$log_file"
+
+echo "Counter incremented to $counter"
